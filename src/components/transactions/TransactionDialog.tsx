@@ -135,7 +135,7 @@ export function TransactionDialog({ open, onOpenChange, txn }: Props) {
           {type === "expense" && (
             <div className="grid gap-1.5">
               <Label>Category</Label>
-              <Select value={categoryId} onValueChange={setCategoryId}>
+              <Select value={categoryId || undefined} onValueChange={setCategoryId}>
                 <SelectTrigger><SelectValue placeholder="Select category" /></SelectTrigger>
                 <SelectContent>
                   {expenseCategories.map((c) => (
