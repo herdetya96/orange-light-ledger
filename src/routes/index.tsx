@@ -241,9 +241,10 @@ function Overview() {
       <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4 pb-8">
         <section className="rounded-[14px] bg-card ring-1 ring-border p-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-[15px] font-semibold tracking-tight">Recent transactions</h2>
-            <Link to="/transactions" className="text-[12px] text-slate hover:text-foreground">View all</Link>
+            <h2 className="text-[15px] font-semibold tracking-tight">Recent Transactions</h2>
+            <Link to="/transactions" className="text-[12px] text-slate hover:text-foreground rounded-full ring-1 ring-border px-2.5 h-6 inline-flex items-center">View All</Link>
           </div>
+
           <ul className="mt-3 divide-y divide-border">
             {recent.slice(0, 6).map((t) => {
               const isIncome = t.type === "income";
