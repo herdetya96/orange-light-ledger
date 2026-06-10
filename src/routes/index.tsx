@@ -17,6 +17,7 @@ import { StatCard } from "@/components/StatCard";
 import { PeriodSelector } from "@/components/PeriodSelector";
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { TransactionDialog } from "@/components/transactions/TransactionDialog";
+import { PrimaryButton } from "@/components/PrimaryButton";
 import { fetchGoals, fetchTransactions, type Transaction } from "@/lib/api";
 import { formatCompact, formatDate, formatDateShort, formatIDR } from "@/lib/format";
 import { isoDate, periodStart, previousPeriodStart, type Period } from "@/lib/period";
