@@ -155,11 +155,12 @@ function Overview() {
 
       {/* KPIs */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard label="Total balance" value={formatIDR(balance)} delta={pctDelta(balance, prevBalance)} deltaLabel={periodLabel[period]} />
-        <StatCard label="Income" value={formatIDR(income)} delta={pctDelta(income, prevIncome)} deltaLabel={periodLabel[period]} />
-        <StatCard label="Expenses" value={formatIDR(expense)} delta={pctDelta(expense, prevExpense)} deltaLabel={periodLabel[period]} positiveIsGood={false} />
-        <StatCard label="Saving rate" value={`${saving.toFixed(1)}%`} delta={saving - prevSaving} deltaLabel={periodLabel[period]} />
+        <StatCard label="Total Balance" value={formatIDR(balance)} delta={pctDelta(balance, prevBalance)} />
+        <StatCard label="Income" value={formatIDR(income)} delta={pctDelta(income, prevIncome)} />
+        <StatCard label="Expenses" value={formatIDR(expense)} delta={pctDelta(expense, prevExpense)} positiveIsGood={false} />
+        <StatCard label="Savings Rate" value={`${saving.toFixed(1)}%`} delta={saving - prevSaving} />
       </div>
+
 
       {/* Charts row */}
       <div className="mt-4 grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-4">
