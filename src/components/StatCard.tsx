@@ -22,7 +22,9 @@ export function StatCard({ label, value, delta, deltaLabel, positiveIsGood = tru
           <span
             className={[
               "inline-flex items-center gap-0.5 rounded-full px-1.5 h-5 text-[11px] font-medium tabular-nums",
-              good ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive",
+              good
+                ? "bg-[#EEFFF3] text-success"
+                : "bg-[#FFECEC] text-destructive",
             ].join(" ")}
           >
             {positive ? <ArrowUp className="size-3" strokeWidth={2.4} /> : <ArrowDown className="size-3" strokeWidth={2.4} />}
@@ -30,7 +32,7 @@ export function StatCard({ label, value, delta, deltaLabel, positiveIsGood = tru
           </span>
         )}
       </div>
-      <div className="mt-5 text-[30px] font-semibold tracking-tight leading-none text-foreground tabular-nums">
+      <div className="mt-4 text-[24px] font-semibold tracking-[-0.02em] leading-[28px] text-foreground tabular-nums">
         {value}
       </div>
       {deltaLabel && <div className="mt-2 text-[11.5px] text-slate">{deltaLabel}</div>}
