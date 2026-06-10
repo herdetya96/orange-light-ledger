@@ -164,11 +164,9 @@ function Overview() {
       {/* Charts row */}
       <div className="mt-4 grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-4">
         <section className="rounded-[14px] bg-card ring-1 ring-border p-5">
-          <div className="flex items-baseline justify-between">
-            <div>
-              <h2 className="text-[15px] font-semibold tracking-tight">Spending overview</h2>
-              <p className="text-[12px] text-slate mt-0.5">Expenses across the selected period</p>
-            </div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-[15px] font-semibold tracking-tight">Spending Overview</h2>
+            <PeriodSelector value={period} onChange={setPeriod} />
           </div>
           <div className="mt-5 h-[240px]">
             <ResponsiveContainer>
@@ -180,43 +178,56 @@ function Overview() {
                   tick={{ fontSize: 11, fill: "var(--steel)" }}
                 />
                 <Tooltip
-                  cursor={{ fill: "var(--active-fog)" }}
+                  cursor={{ fill: "transparent" }}
                   contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", fontSize: 12 }}
                   formatter={(v: number) => [formatIDR(v), "Spent"]}
                 />
-                <Bar dataKey="amount" radius={[6, 6, 0, 0]} fill="var(--primary)" maxBarSize={36} />
+                <Bar dataKey="amount" radius={[4, 4, 0, 0]} maxBarSize={28}>
+                  {(() => {
+                    const max = Math.max(...trend.map((b) => b.amount), 0);
+                    const threshold = max * 0.7;
+                    return trend.map((b, i) => (
+                      <Cell key={i} fill={b.amount >= threshold && b.amount > 0 ? "var(--primary)" : "var(--active-fog)"} />
+                    ));
+                  })()}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
         </section>
 
         <section className="rounded-[14px] bg-card ring-1 ring-border p-5">
-          <h2 className="text-[15px] font-semibold tracking-tight">Top categories</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-[15px] font-semibold tracking-tight">Top Categories</h2>
+            <PeriodSelector value={period} onChange={setPeriod} />
+          </div>
           {topCategories.length === 0 ? (
             <p className="mt-8 text-[13px] text-slate text-center">No expenses in this period yet.</p>
           ) : (
-            <div className="mt-3 flex items-center gap-4">
-              <div className="relative size-[150px] shrink-0">
+            <div className="mt-4 flex items-center gap-5">
+              <div className="relative size-[160px] shrink-0">
                 <ResponsiveContainer>
                   <PieChart>
-                    <Pie data={topCategories} dataKey="amount" innerRadius={48} outerRadius={70} stroke="none" paddingAngle={2}>
+                    <Pie data={topCategories} dataKey="amount" innerRadius={56} outerRadius={78} stroke="none" paddingAngle={2}>
                       {topCategories.map((c, i) => <Cell key={i} fill={c.color} />)}
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
                 <div className="absolute inset-0 grid place-items-center text-center pointer-events-none">
                   <div>
-                    <div className="text-[10px] text-steel uppercase tracking-[0.12em] font-semibold">Total</div>
-                    <div className="text-[14px] font-semibold tracking-tight">{formatCompact(topTotal)}</div>
+                    <div className="text-[13px] font-semibold tracking-tight tabular-nums">{formatCompact(topCategories[0].amount)}</div>
+                    <div className="text-[10.5px] text-slate mt-0.5">{topCategories[0].name}</div>
                   </div>
                 </div>
               </div>
-              <ul className="flex-1 flex flex-col gap-2 min-w-0">
+              <ul className="flex-1 flex flex-col gap-2.5 min-w-0">
                 {topCategories.map((c) => (
-                  <li key={c.name} className="flex items-center gap-2 text-[12.5px]">
-                    <span className="size-2 rounded-full shrink-0" style={{ background: c.color }} />
-                    <span className="truncate text-foreground">{c.name}</span>
-                    <span className="ml-auto tabular-nums text-slate">{formatIDR(c.amount)}</span>
+                  <li key={c.name} className="min-w-0">
+                    <div className="flex items-center gap-2 text-[12px] text-slate">
+                      <span className="size-1.5 rounded-full shrink-0" style={{ background: c.color }} />
+                      <span className="truncate">{c.name}</span>
+                    </div>
+                    <div className="ml-3.5 text-[14px] font-semibold tabular-nums text-foreground">{formatIDR(c.amount)}</div>
                   </li>
                 ))}
               </ul>
@@ -224,6 +235,7 @@ function Overview() {
           )}
         </section>
       </div>
+
 
       {/* Bottom row */}
       <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4 pb-8">
