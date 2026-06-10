@@ -139,15 +139,19 @@ function Overview() {
           <p className="mt-1 text-[13px] text-slate">{formatDate(now)}</p>
         </div>
         <div className="flex items-center gap-2">
-          <PeriodSelector value={period} onChange={setPeriod} />
           <button
             onClick={() => setAddOpen(true)}
-            className="h-9 px-3.5 rounded-md bg-foreground text-background text-[13px] font-medium inline-flex items-center gap-1.5 hover:bg-foreground/90 transition-colors"
+            className="h-9 px-3.5 rounded-md bg-foreground text-background text-[13px] font-medium inline-flex items-center gap-2 hover:bg-foreground/90 transition-colors"
           >
-            <Plus className="size-4" strokeWidth={2} /> Add Transaction
+            <span className="grid place-items-center size-4 rounded-full bg-primary">
+              <Plus className="size-3 text-primary-foreground" strokeWidth={2.6} />
+            </span>
+            Add Transaction
           </button>
         </div>
       </div>
+
+      {/* Period selector under header? keep here for context */}
 
       {/* KPIs */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
