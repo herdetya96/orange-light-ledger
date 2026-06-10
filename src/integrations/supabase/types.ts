@@ -14,7 +14,122 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categories: {
+        Row: {
+          color: string | null
+          created_at: string
+          icon: string | null
+          id: string
+          is_archived: boolean
+          name: string
+          type: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_archived?: boolean
+          name: string
+          type: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          icon?: string | null
+          id?: string
+          is_archived?: boolean
+          name?: string
+          type?: string
+        }
+        Relationships: []
+      }
+      goals: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          saved_amount: number
+          target_amount: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          saved_amount?: number
+          target_amount: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          saved_amount?: number
+          target_amount?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          base_currency: string | null
+          created_at: string
+          date_format: string | null
+          display_name: string | null
+          id: string
+        }
+        Insert: {
+          base_currency?: string | null
+          created_at?: string
+          date_format?: string | null
+          display_name?: string | null
+          id?: string
+        }
+        Update: {
+          base_currency?: string | null
+          created_at?: string
+          date_format?: string | null
+          display_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          amount: number
+          category_id: string | null
+          created_at: string
+          id: string
+          note: string | null
+          occurred_on: string
+          type: string
+        }
+        Insert: {
+          amount: number
+          category_id?: string | null
+          created_at?: string
+          id?: string
+          note?: string | null
+          occurred_on?: string
+          type: string
+        }
+        Update: {
+          amount?: number
+          category_id?: string | null
+          created_at?: string
+          id?: string
+          note?: string | null
+          occurred_on?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
