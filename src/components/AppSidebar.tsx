@@ -35,10 +35,10 @@ export function AppSidebar() {
   return (
     <aside className="hidden md:flex w-[240px] shrink-0 flex-col bg-fog">
       <div className="h-14 flex items-center px-5 gap-2">
-        <div className="size-7 rounded-md bg-foreground text-background grid place-items-center">
-          <span className="text-[13px] font-semibold tracking-tight">L</span>
+        <div className="size-6 rounded-full grid place-items-center text-white text-[12px] font-bold" style={{ background: "linear-gradient(180deg, #FD901B 0%, #FE6A00 100%)" }}>
+          L
         </div>
-        <span className="text-[15px] font-semibold tracking-tight">Ledger</span>
+        <span className="text-[15px] font-semibold tracking-[-0.13px] text-foreground">Ledger</span>
       </div>
       <nav className="px-3 flex flex-col gap-6 mt-2">
         {groups.map((g) => (
