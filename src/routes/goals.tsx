@@ -5,6 +5,7 @@ import { Pencil, Plus } from "lucide-react";
 import { fetchGoals, type Goal } from "@/lib/api";
 import { formatIDR } from "@/lib/format";
 import { GoalDialog } from "@/components/goals/GoalDialog";
+import { PrimaryButton } from "@/components/PrimaryButton";
 
 export const Route = createFileRoute("/goals")({
   head: () => ({
@@ -28,12 +29,12 @@ function GoalsPage() {
           <h1 className="text-[22px] font-semibold tracking-tight">Goals</h1>
           <p className="mt-1 text-[13px] text-slate">What you're saving for, and how far you've come.</p>
         </div>
-        <button
+        <PrimaryButton
           onClick={() => { setEditing(null); setOpen(true); }}
-          className="h-9 px-3.5 rounded-md bg-foreground text-background text-[13px] font-medium inline-flex items-center gap-1.5 hover:bg-foreground/90"
+          icon={<Plus className="size-3" strokeWidth={2.6} />}
         >
-          <Plus className="size-4" /> New goal
-        </button>
+          New goal
+        </PrimaryButton>
       </div>
 
       {isLoading ? (
@@ -42,12 +43,13 @@ function GoalsPage() {
         <div className="mt-10 rounded-[14px] bg-card ring-1 ring-border p-10 text-center">
           <h3 className="text-[15px] font-semibold tracking-tight">No goals yet</h3>
           <p className="mt-1 text-[13px] text-slate">Create your first savings goal to see your progress.</p>
-          <button
+          <PrimaryButton
             onClick={() => { setEditing(null); setOpen(true); }}
-            className="mt-4 h-9 px-3.5 rounded-md bg-foreground text-background text-[13px] font-medium inline-flex items-center gap-1.5 hover:bg-foreground/90"
+            icon={<Plus className="size-3" strokeWidth={2.6} />}
+            className="mt-4"
           >
-            <Plus className="size-4" /> New goal
-          </button>
+            New goal
+          </PrimaryButton>
         </div>
       ) : (
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

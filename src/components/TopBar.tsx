@@ -1,9 +1,18 @@
-import { Bell, Search, Sun } from "lucide-react";
+import { Bell, PanelLeft, Search, Sun } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useSidebar } from "@/components/sidebar-context";
 
 export function TopBar() {
+  const { toggle, collapsed } = useSidebar();
   return (
     <header className="sticky top-0 z-20 h-14 bg-background border-b border-border flex items-center px-5 gap-4">
+      <button
+        onClick={toggle}
+        aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        className="size-9 grid place-items-center rounded-md text-slate hover:bg-fog transition-colors"
+      >
+        <PanelLeft className="size-[18px]" strokeWidth={1.8} />
+      </button>
       <div className="flex-1 flex justify-center">
         <div className="relative w-full max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-[15px] text-steel" strokeWidth={1.8} />
