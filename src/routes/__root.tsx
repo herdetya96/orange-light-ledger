@@ -118,17 +118,19 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex bg-fog text-foreground">
-        <AppSidebar />
-        <div className="flex-1 flex flex-col min-w-0 md:pr-4 md:py-4">
-          <div className="flex-1 flex flex-col bg-background rounded-none md:rounded-[18px] ring-0 md:ring-1 md:ring-border overflow-hidden">
-            <TopBar />
-            <main className="flex-1 overflow-y-auto">
-              <Outlet />
-            </main>
+      <SidebarProvider>
+        <div className="min-h-screen flex bg-fog text-foreground">
+          <AppSidebar />
+          <div className="flex-1 flex flex-col min-w-0 md:pr-4 md:py-4">
+            <div className="flex-1 flex flex-col bg-background rounded-none md:rounded-[18px] ring-0 md:ring-1 md:ring-border overflow-hidden">
+              <TopBar />
+              <main className="flex-1 overflow-y-auto">
+                <Outlet />
+              </main>
+            </div>
           </div>
         </div>
-      </div>
+      </SidebarProvider>
       <Toaster position="bottom-right" />
     </QueryClientProvider>
   );
