@@ -35,7 +35,7 @@ const KEYS = {
   categories: "ledger:categories",
   transactions: "ledger:transactions",
   goals: "ledger:goals",
-  seeded: "ledger:seeded:v1",
+  seeded: "ledger:seeded:v2",
 } as const;
 
 const hasStorage = () => typeof window !== "undefined" && !!window.localStorage;
