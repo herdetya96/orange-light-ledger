@@ -65,55 +65,55 @@
 :root {
   --radius: 0.5rem;
 
-  /* Surfaces */
-  --background: oklch(1 0 0);                        /* white */
-  --fog: oklch(0.985 0.002 95);                      /* #fafaf9 sidebar */
-  --active-fog: oklch(0.963 0 0);                    /* #f3f4f6 active nav */
+  /* Surfaces (from Figma) */
+  --background: #ffffff;                             /* inner content panel */
+  --fog: #f9f9f9;                                    /* page canvas + sidebar */
+  --active-fog: #efefef;                             /* hover / active nav */
 
-  /* Ink ramp (neutral) */
-  --ink: oklch(0.205 0 0);                           /* #1a1a1a */
-  --graphite: oklch(0.39 0 0);                       /* ~#404040 */
-  --slate: oklch(0.55 0 0);                          /* ~#737373 */
-  --steel: oklch(0.68 0 0);                          /* ~#a1a1a1 */
-  --silver: oklch(0.78 0 0);                         /* ~#c4c4c4 */
+  /* Ink ramp */
+  --ink: #1a1c1e;
+  --graphite: #2c2c2c;
+  --slate: #585858;
+  --steel: #9e9fa0;
+  --silver: #cccccc;
 
   --foreground: var(--ink);
-  --card: oklch(1 0 0);
+  --card: #ffffff;
   --card-foreground: var(--ink);
-  --popover: oklch(1 0 0);
+  --popover: #ffffff;
   --popover-foreground: var(--ink);
 
-  /* The single accent — electric orange #f97316 */
-  --primary: oklch(0.705 0.187 47.6);
-  --primary-foreground: oklch(1 0 0);
+  /* Electric orange (gradient #FD901B → #FE6A00; flat #FE7005) */
+  --primary: #fe7005;
+  --primary-foreground: #ffffff;
 
-  --secondary: oklch(0.97 0 0);
+  --secondary: #f4f4f4;
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.97 0 0);
+  --muted: #f4f4f4;
   --muted-foreground: var(--slate);
-  --accent: oklch(0.97 0 0);
+  --accent: #f4f4f4;
   --accent-foreground: var(--ink);
 
-  --destructive: oklch(0.588 0.218 27.3);            /* #dc2626 */
-  --destructive-foreground: oklch(1 0 0);
-  --success: oklch(0.622 0.176 145.6);               /* #16a34a */
-  --success-foreground: oklch(1 0 0);
+  --destructive: #ff383c;
+  --destructive-foreground: #ffffff;
+  --success: #0fbd43;
+  --success-foreground: #ffffff;
 
-  /* Hairline ring ink-10% #efefec */
-  --border: oklch(0.945 0.001 95);
-  --input: oklch(0.945 0.001 95);
-  --ring: oklch(0.78 0 0);
+  /* Hairline ring */
+  --border: #ebebeb;
+  --input: #ebebeb;
+  --ring: #cccccc;
 
-  --chart-1: oklch(0.705 0.187 47.6);                /* orange */
-  --chart-2: oklch(0.5 0 0);                         /* #525252 */
-  --chart-3: oklch(0.585 0 0);                       /* #737373 */
-  --chart-4: oklch(0.7 0 0);                         /* #a1a1a1 */
-  --chart-5: oklch(0.588 0.218 27.3);                /* error red */
+  --chart-1: #fe7005;
+  --chart-2: #585858;
+  --chart-3: #9e9fa0;
+  --chart-4: #cccccc;
+  --chart-5: #ff383c;
 
   --sidebar: var(--fog);
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: var(--active-fog);
   --sidebar-accent-foreground: var(--ink);
   --sidebar-border: var(--border);
