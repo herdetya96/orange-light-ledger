@@ -12,6 +12,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AppSidebar } from "@/components/AppSidebar";
 import { TopBar } from "@/components/TopBar";
+import { SidebarProvider } from "@/components/sidebar-context";
 import { Toaster } from "@/components/ui/sonner";
 
 function NotFoundComponent() {
