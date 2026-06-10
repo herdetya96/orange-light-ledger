@@ -23,9 +23,10 @@ export function formatCompact(amount: number) {
 
 export function formatDate(d: string | Date) {
   const date = typeof d === "string" ? new Date(d) : d;
-  return new Intl.DateTimeFormat("en-GB", {
-    day: "2-digit",
-    month: "short",
+  return new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
     year: "numeric",
   }).format(date);
 }

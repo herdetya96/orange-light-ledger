@@ -14,26 +14,26 @@ export function StatCard({ label, value, delta, deltaLabel, positiveIsGood = tru
   const good = positive === positiveIsGood;
   return (
     <div className="rounded-[14px] bg-card ring-1 ring-border p-5">
-      <div className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-steel">
-        {label}
-      </div>
-      <div className="mt-3 text-[28px] font-semibold tracking-tight leading-none text-foreground">
-        {value}
-      </div>
-      {hasDelta && (
-        <div className="mt-3 flex items-center gap-2">
+      <div className="flex items-start justify-between gap-2">
+        <div className="text-[10.5px] font-semibold uppercase tracking-[0.12em] text-steel">
+          {label}
+        </div>
+        {hasDelta && (
           <span
             className={[
-              "inline-flex items-center gap-1 rounded-full px-2 h-5 text-[11px] font-medium",
+              "inline-flex items-center gap-0.5 rounded-full px-1.5 h-5 text-[11px] font-medium tabular-nums",
               good ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive",
             ].join(" ")}
           >
-            {positive ? <ArrowUp className="size-3" strokeWidth={2.2} /> : <ArrowDown className="size-3" strokeWidth={2.2} />}
-            {Math.abs(delta!).toFixed(1)}%
+            {positive ? <ArrowUp className="size-3" strokeWidth={2.4} /> : <ArrowDown className="size-3" strokeWidth={2.4} />}
+            {positive ? "+" : "-"}{Math.abs(delta!).toFixed(1)}%
           </span>
-          {deltaLabel && <span className="text-[11.5px] text-slate">{deltaLabel}</span>}
-        </div>
-      )}
+        )}
+      </div>
+      <div className="mt-5 text-[30px] font-semibold tracking-tight leading-none text-foreground tabular-nums">
+        {value}
+      </div>
+      {deltaLabel && <div className="mt-2 text-[11.5px] text-slate">{deltaLabel}</div>}
     </div>
   );
 }

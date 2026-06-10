@@ -139,32 +139,35 @@ function Overview() {
           <p className="mt-1 text-[13px] text-slate">{formatDate(now)}</p>
         </div>
         <div className="flex items-center gap-2">
-          <PeriodSelector value={period} onChange={setPeriod} />
           <button
             onClick={() => setAddOpen(true)}
-            className="h-9 px-3.5 rounded-md bg-foreground text-background text-[13px] font-medium inline-flex items-center gap-1.5 hover:bg-foreground/90 transition-colors"
+            className="h-9 px-3.5 rounded-md bg-foreground text-background text-[13px] font-medium inline-flex items-center gap-2 hover:bg-foreground/90 transition-colors"
           >
-            <Plus className="size-4" strokeWidth={2} /> Add Transaction
+            <span className="grid place-items-center size-4 rounded-full bg-primary">
+              <Plus className="size-3 text-primary-foreground" strokeWidth={2.6} />
+            </span>
+            Add Transaction
           </button>
         </div>
       </div>
 
+      {/* Period selector under header? keep here for context */}
+
       {/* KPIs */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard label="Total balance" value={formatIDR(balance)} delta={pctDelta(balance, prevBalance)} deltaLabel={periodLabel[period]} />
-        <StatCard label="Income" value={formatIDR(income)} delta={pctDelta(income, prevIncome)} deltaLabel={periodLabel[period]} />
-        <StatCard label="Expenses" value={formatIDR(expense)} delta={pctDelta(expense, prevExpense)} deltaLabel={periodLabel[period]} positiveIsGood={false} />
-        <StatCard label="Saving rate" value={`${saving.toFixed(1)}%`} delta={saving - prevSaving} deltaLabel={periodLabel[period]} />
+        <StatCard label="Total Balance" value={formatIDR(balance)} delta={pctDelta(balance, prevBalance)} />
+        <StatCard label="Income" value={formatIDR(income)} delta={pctDelta(income, prevIncome)} />
+        <StatCard label="Expenses" value={formatIDR(expense)} delta={pctDelta(expense, prevExpense)} positiveIsGood={false} />
+        <StatCard label="Savings Rate" value={`${saving.toFixed(1)}%`} delta={saving - prevSaving} />
       </div>
+
 
       {/* Charts row */}
       <div className="mt-4 grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-4">
         <section className="rounded-[14px] bg-card ring-1 ring-border p-5">
-          <div className="flex items-baseline justify-between">
-            <div>
-              <h2 className="text-[15px] font-semibold tracking-tight">Spending overview</h2>
-              <p className="text-[12px] text-slate mt-0.5">Expenses across the selected period</p>
-            </div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-[15px] font-semibold tracking-tight">Spending Overview</h2>
+            <PeriodSelector value={period} onChange={setPeriod} />
           </div>
           <div className="mt-5 h-[240px]">
             <ResponsiveContainer>
@@ -176,43 +179,56 @@ function Overview() {
                   tick={{ fontSize: 11, fill: "var(--steel)" }}
                 />
                 <Tooltip
-                  cursor={{ fill: "var(--active-fog)" }}
+                  cursor={{ fill: "transparent" }}
                   contentStyle={{ borderRadius: 8, border: "1px solid var(--border)", fontSize: 12 }}
                   formatter={(v: number) => [formatIDR(v), "Spent"]}
                 />
-                <Bar dataKey="amount" radius={[6, 6, 0, 0]} fill="var(--primary)" maxBarSize={36} />
+                <Bar dataKey="amount" radius={[4, 4, 0, 0]} maxBarSize={28}>
+                  {(() => {
+                    const max = Math.max(...trend.map((b) => b.amount), 0);
+                    const threshold = max * 0.7;
+                    return trend.map((b, i) => (
+                      <Cell key={i} fill={b.amount >= threshold && b.amount > 0 ? "var(--primary)" : "var(--active-fog)"} />
+                    ));
+                  })()}
+                </Bar>
               </BarChart>
             </ResponsiveContainer>
           </div>
         </section>
 
         <section className="rounded-[14px] bg-card ring-1 ring-border p-5">
-          <h2 className="text-[15px] font-semibold tracking-tight">Top categories</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-[15px] font-semibold tracking-tight">Top Categories</h2>
+            <PeriodSelector value={period} onChange={setPeriod} />
+          </div>
           {topCategories.length === 0 ? (
             <p className="mt-8 text-[13px] text-slate text-center">No expenses in this period yet.</p>
           ) : (
-            <div className="mt-3 flex items-center gap-4">
-              <div className="relative size-[150px] shrink-0">
+            <div className="mt-4 flex items-center gap-5">
+              <div className="relative size-[160px] shrink-0">
                 <ResponsiveContainer>
                   <PieChart>
-                    <Pie data={topCategories} dataKey="amount" innerRadius={48} outerRadius={70} stroke="none" paddingAngle={2}>
+                    <Pie data={topCategories} dataKey="amount" innerRadius={56} outerRadius={78} stroke="none" paddingAngle={2}>
                       {topCategories.map((c, i) => <Cell key={i} fill={c.color} />)}
                     </Pie>
                   </PieChart>
                 </ResponsiveContainer>
                 <div className="absolute inset-0 grid place-items-center text-center pointer-events-none">
                   <div>
-                    <div className="text-[10px] text-steel uppercase tracking-[0.12em] font-semibold">Total</div>
-                    <div className="text-[14px] font-semibold tracking-tight">{formatCompact(topTotal)}</div>
+                    <div className="text-[13px] font-semibold tracking-tight tabular-nums">{formatCompact(topCategories[0].amount)}</div>
+                    <div className="text-[10.5px] text-slate mt-0.5">{topCategories[0].name}</div>
                   </div>
                 </div>
               </div>
-              <ul className="flex-1 flex flex-col gap-2 min-w-0">
+              <ul className="flex-1 flex flex-col gap-2.5 min-w-0">
                 {topCategories.map((c) => (
-                  <li key={c.name} className="flex items-center gap-2 text-[12.5px]">
-                    <span className="size-2 rounded-full shrink-0" style={{ background: c.color }} />
-                    <span className="truncate text-foreground">{c.name}</span>
-                    <span className="ml-auto tabular-nums text-slate">{formatIDR(c.amount)}</span>
+                  <li key={c.name} className="min-w-0">
+                    <div className="flex items-center gap-2 text-[12px] text-slate">
+                      <span className="size-1.5 rounded-full shrink-0" style={{ background: c.color }} />
+                      <span className="truncate">{c.name}</span>
+                    </div>
+                    <div className="ml-3.5 text-[14px] font-semibold tabular-nums text-foreground">{formatIDR(c.amount)}</div>
                   </li>
                 ))}
               </ul>
@@ -221,13 +237,15 @@ function Overview() {
         </section>
       </div>
 
+
       {/* Bottom row */}
       <div className="mt-4 grid grid-cols-1 lg:grid-cols-2 gap-4 pb-8">
         <section className="rounded-[14px] bg-card ring-1 ring-border p-5">
           <div className="flex items-center justify-between">
-            <h2 className="text-[15px] font-semibold tracking-tight">Recent transactions</h2>
-            <Link to="/transactions" className="text-[12px] text-slate hover:text-foreground">View all</Link>
+            <h2 className="text-[15px] font-semibold tracking-tight">Recent Transactions</h2>
+            <Link to="/transactions" className="text-[12px] text-slate hover:text-foreground rounded-full ring-1 ring-border px-2.5 h-6 inline-flex items-center">View All</Link>
           </div>
+
           <ul className="mt-3 divide-y divide-border">
             {recent.slice(0, 6).map((t) => {
               const isIncome = t.type === "income";
@@ -255,25 +273,24 @@ function Overview() {
         <section className="rounded-[14px] bg-card ring-1 ring-border p-5">
           <div className="flex items-center justify-between">
             <h2 className="text-[15px] font-semibold tracking-tight">Goals</h2>
-            <Link to="/goals" className="text-[12px] text-slate hover:text-foreground">View all</Link>
+            <Link to="/goals" className="text-[12px] text-slate hover:text-foreground rounded-full ring-1 ring-border px-2.5 h-6 inline-flex items-center">View All</Link>
           </div>
-          <ul className="mt-4 flex flex-col gap-4">
+          <ul className="mt-4 flex flex-col gap-5">
             {goals.slice(0, 3).map((g) => {
               const pct = Math.max(0, Math.min(100, (Number(g.saved_amount) / Number(g.target_amount)) * 100));
               return (
-                <li key={g.id}>
-                  <div className="flex items-baseline justify-between">
-                    <div className="text-[13.5px] font-medium text-foreground">{g.name}</div>
-                    <div className="text-[12px] text-slate tabular-nums">{pct.toFixed(0)}%</div>
+                <li key={g.id} className="rounded-[10px] ring-1 ring-border p-4">
+                  <div className="text-[13px] text-slate">{g.name}</div>
+                  <div className="mt-1 flex items-end justify-between gap-3">
+                    <div className="text-[24px] font-semibold tracking-tight tabular-nums leading-none">{formatIDR(Number(g.target_amount))}</div>
+                    <div className="text-[11.5px] text-slate tabular-nums">{pct.toFixed(0)}% achieved</div>
                   </div>
-                  <div className="mt-1.5 flex items-center gap-3">
-                    <div className="flex-1 h-1.5 rounded-full bg-active-fog overflow-hidden">
-                      <div className="h-full bg-primary" style={{ width: `${pct}%` }} />
-                    </div>
-                    <div className="text-[11.5px] text-slate tabular-nums shrink-0">{formatCompact(Number(g.target_amount))}</div>
+                  <div className="mt-3 h-1.5 rounded-full bg-active-fog overflow-hidden">
+                    <div className="h-full bg-primary rounded-full" style={{ width: `${pct}%` }} />
                   </div>
                 </li>
               );
+
             })}
             {goals.length === 0 && (
               <li className="py-8 text-center text-[13px] text-slate">No goals yet. <Link to="/goals" className="text-foreground underline">Create one</Link>.</li>
