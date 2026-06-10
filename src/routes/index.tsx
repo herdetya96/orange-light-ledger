@@ -271,25 +271,24 @@ function Overview() {
         <section className="rounded-[14px] bg-card ring-1 ring-border p-5">
           <div className="flex items-center justify-between">
             <h2 className="text-[15px] font-semibold tracking-tight">Goals</h2>
-            <Link to="/goals" className="text-[12px] text-slate hover:text-foreground">View all</Link>
+            <Link to="/goals" className="text-[12px] text-slate hover:text-foreground rounded-full ring-1 ring-border px-2.5 h-6 inline-flex items-center">View All</Link>
           </div>
-          <ul className="mt-4 flex flex-col gap-4">
+          <ul className="mt-4 flex flex-col gap-5">
             {goals.slice(0, 3).map((g) => {
               const pct = Math.max(0, Math.min(100, (Number(g.saved_amount) / Number(g.target_amount)) * 100));
               return (
-                <li key={g.id}>
-                  <div className="flex items-baseline justify-between">
-                    <div className="text-[13.5px] font-medium text-foreground">{g.name}</div>
-                    <div className="text-[12px] text-slate tabular-nums">{pct.toFixed(0)}%</div>
+                <li key={g.id} className="rounded-[10px] ring-1 ring-border p-4">
+                  <div className="text-[13px] text-slate">{g.name}</div>
+                  <div className="mt-1 flex items-end justify-between gap-3">
+                    <div className="text-[24px] font-semibold tracking-tight tabular-nums leading-none">{formatIDR(Number(g.target_amount))}</div>
+                    <div className="text-[11.5px] text-slate tabular-nums">{pct.toFixed(0)}% achieved</div>
                   </div>
-                  <div className="mt-1.5 flex items-center gap-3">
-                    <div className="flex-1 h-1.5 rounded-full bg-active-fog overflow-hidden">
-                      <div className="h-full bg-primary" style={{ width: `${pct}%` }} />
-                    </div>
-                    <div className="text-[11.5px] text-slate tabular-nums shrink-0">{formatCompact(Number(g.target_amount))}</div>
+                  <div className="mt-3 h-1.5 rounded-full bg-active-fog overflow-hidden">
+                    <div className="h-full bg-primary rounded-full" style={{ width: `${pct}%` }} />
                   </div>
                 </li>
               );
+
             })}
             {goals.length === 0 && (
               <li className="py-8 text-center text-[13px] text-slate">No goals yet. <Link to="/goals" className="text-foreground underline">Create one</Link>.</li>
