@@ -140,15 +140,9 @@ function Overview() {
         </div>
 
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setAddOpen(true)}
-            className="h-9 px-3.5 rounded-md bg-foreground text-background text-[13px] font-medium inline-flex items-center gap-2 hover:bg-foreground/90 transition-colors"
-          >
-            <span className="grid place-items-center size-4 rounded-full bg-primary">
-              <Plus className="size-3 text-primary-foreground" strokeWidth={2.6} />
-            </span>
+          <PrimaryButton onClick={() => setAddOpen(true)} icon={<Plus className="size-3" strokeWidth={2.6} />}>
             Add Transaction
-          </button>
+          </PrimaryButton>
         </div>
       </div>
 
