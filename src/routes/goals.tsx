@@ -29,12 +29,12 @@ function GoalsPage() {
           <h1 className="text-[22px] font-semibold tracking-tight">Goals</h1>
           <p className="mt-1 text-[13px] text-slate">What you're saving for, and how far you've come.</p>
         </div>
-        <button
+        <PrimaryButton
           onClick={() => { setEditing(null); setOpen(true); }}
-          className="h-9 px-3.5 rounded-md bg-foreground text-background text-[13px] font-medium inline-flex items-center gap-1.5 hover:bg-foreground/90"
+          icon={<Plus className="size-3" strokeWidth={2.6} />}
         >
-          <Plus className="size-4" /> New goal
-        </button>
+          New goal
+        </PrimaryButton>
       </div>
 
       {isLoading ? (
