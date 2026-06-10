@@ -136,8 +136,9 @@ function Overview() {
       <div className="flex items-end justify-between gap-4 flex-wrap">
         <div>
           <h1 className="text-[22px] font-semibold tracking-tight">Overview</h1>
-          <p className="mt-1 text-[13px] text-slate">{formatDate(now)}</p>
+          <p className="mt-1 text-[13px] text-slate" suppressHydrationWarning>{formatDate(now)}</p>
         </div>
+
         <div className="flex items-center gap-2">
           <button
             onClick={() => setAddOpen(true)}
