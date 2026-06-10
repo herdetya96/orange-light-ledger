@@ -5,6 +5,7 @@ import { Pencil, Plus } from "lucide-react";
 import { fetchGoals, type Goal } from "@/lib/api";
 import { formatIDR } from "@/lib/format";
 import { GoalDialog } from "@/components/goals/GoalDialog";
+import { PrimaryButton } from "@/components/PrimaryButton";
 
 export const Route = createFileRoute("/goals")({
   head: () => ({
