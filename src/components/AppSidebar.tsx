@@ -8,7 +8,9 @@ import {
   PiggyBank,
 } from "lucide-react";
 
-const groups = [
+type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean };
+
+const groups: { label: string; items: NavItem[] }[] = [
   {
     label: "MAIN",
     items: [
@@ -25,7 +27,7 @@ const groups = [
       { to: "/budget", label: "Budget", icon: PiggyBank },
     ],
   },
-] as const;
+];
 
 export function AppSidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
